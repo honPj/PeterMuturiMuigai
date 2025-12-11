@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaCalendarAlt, FaUser, FaClock, FaTag, FaArrowRight, FaSearch, FaBookOpen, FaComments, FaShareAlt, FaEye } from 'react-icons/fa';
+import { FaUser, FaArrowRight, FaSearch, FaComments } from 'react-icons/fa';
 
 interface BlogPost {
   id: string;
@@ -539,7 +539,7 @@ const Blog: React.FC = () => {
           </p>
         </div>
 
-        {featuredPosts.length > 0 && (
+        {/* {featuredPosts.length > 0 && (
           <div style={featuredSectionStyles}>
             <h3 style={{
               fontSize: '1.5rem',
@@ -607,7 +607,7 @@ const Blog: React.FC = () => {
               ))}
             </div>
           </div>
-        )}
+        )} */}
 
         <div style={controlsContainerStyles}>
           <div style={searchContainerStyles}>
@@ -661,7 +661,7 @@ const Blog: React.FC = () => {
                   <h4 style={cardTitleStyles}>{post.title}</h4>
                   <p style={cardExcerptStyles}>{post.excerpt}</p>
                   
-                  <div style={statsContainerStyles}>
+                  {/* <div style={statsContainerStyles}>
                     <div style={statStyles}>
                       <FaEye size={12} />
                       {post.views.toLocaleString()} views
@@ -674,7 +674,7 @@ const Blog: React.FC = () => {
                       <FaClock size={12} />
                       {post.readTime} min
                     </div>
-                  </div>
+                  </div> */}
                 </div>
                 
                 <div style={cardFooterStyles}>

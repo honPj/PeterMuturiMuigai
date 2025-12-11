@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaHeart, FaArrowUp, FaCopyright, FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCalendarAlt, FaCheckCircle } from 'react-icons/fa';
+import { FaHeart, FaArrowUp, FaCopyright, FaGithub, FaLinkedin, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCheckCircle } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -176,7 +176,7 @@ const Footer: React.FC = () => {
                 <FaGithub />
               </a>
               <a 
-                href="#" 
+                href="www.linkedin.com/in/peter-muturi-303089306" 
                 style={socialLinkStyles}
                 aria-label="LinkedIn"
                 onMouseEnter={(e) => {

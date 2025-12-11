@@ -13,9 +13,9 @@ const About: React.FC = () => {
   };
 
   const stats = [
-    { label: 'Projects Completed', value: '10+' },
-    { label: 'Years Experience', value: '4+' },
-    { label: 'Technologies', value: '20+' },
+    { label: 'Projects Completed', value: '5+' },
+    { label: 'Years Experience', value: '1+' },
+    { label: 'Technologies', value: '10+' },
     { label: 'Certifications', value: '4' },
   ];
 

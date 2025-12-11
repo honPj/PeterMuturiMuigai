@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle, FaLinkedin, FaGithub, FaTwitter, FaInstagram } from 'react-icons/fa';
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaPaperPlane, FaCheckCircle, FaLinkedin, FaGithub} from 'react-icons/fa';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -22,10 +22,10 @@ const Contact: React.FC = () => {
   };
 
   const socialLinks = [
-    { icon: <FaLinkedin />, label: 'LinkedIn', url: '#' },
+    { icon: <FaLinkedin />, label: 'LinkedIn', url: 'www.linkedin.com/in/peter-muturi-303089306' },
     { icon: <FaGithub />, label: 'GitHub', url: 'https://github.com/honPj' },
-    { icon: <FaTwitter />, label: 'Twitter', url: '#' },
-    { icon: <FaInstagram />, label: 'Instagram', url: '#' },
+    // { icon: <FaTwitter />, label: 'Twitter', url: '#' },
+    // { icon: <FaInstagram />, label: 'Instagram', url: '#' },
   ];
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -463,7 +463,7 @@ const Contact: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <FaPaperPlane />
+                    
                     Send Message
                   </>
                 )}
@@ -501,7 +501,7 @@ const Contact: React.FC = () => {
               <FaEnvelope />
             </div>
             <div style={statTitleStyles}>Messages Received</div>
-            <div style={statValueStyles}>200+</div>
+            <div style={statValueStyles}>20+</div>
           </div>
 
           <div style={statCardStyles}>

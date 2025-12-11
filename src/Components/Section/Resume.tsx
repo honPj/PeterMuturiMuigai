@@ -26,7 +26,7 @@ const Resume: React.FC = () => {
       title: 'Software Development Trainee',
       company: 'Teach2Give',
       location: 'Remote',
-      period: 'September 2025 - Present',
+      period: 'September 2025 - December 2025',
       description: [
         'Completed comprehensive training in full-stack development',
         'Designed and developed RESTful APIs for web application integration',
@@ -35,12 +35,12 @@ const Resume: React.FC = () => {
         'Applied AI concepts to develop intelligent features in web applications'
       ],
       type: 'work',
-      current: true
+      current: false
     },
     {
       id: 3,
       title: 'ICT Attachee',
-      company: 'ICT Department and Governor\'s Delivery Unit, Embu County',
+      company: 'ICT Department and Governor\'s Delivery Unit, Embu County HeadQuater',
       location: 'Embu, Kenya',
       period: 'May 2024 – September 2024',
       description: [
@@ -78,8 +78,8 @@ const Resume: React.FC = () => {
       institution: 'University of Embu',
       period: 'September 2021 - September 2025',
       description: [
-        'Specialization in Software Development and Network Systems',
-        'Key coursework: Web Development, Database Systems, Networking, AI/ML'
+        
+        'Key coursework:Programming Fundamentals, Object-Oriented Programming, Database Management Systems (DBMS), Computer Networks, Web Development, System Analysis & Design, Software Engineering, IT Project Management, Mobile Application Development, AI & ML'
       ],
       type: 'education'
     },
@@ -89,8 +89,7 @@ const Resume: React.FC = () => {
       institution: 'Geta Secondary School',
       period: 'January 2016 – April 2021',
       description: [
-        'Focus on Mathematics and Sciences',
-        'Computer Studies specialization'
+        
       ],
       type: 'education'
     }
@@ -698,12 +697,12 @@ const Resume: React.FC = () => {
               </ul>
             </div>
             <div style={leadershipItemStyles}>
-              <h4 style={leadershipItemTitleStyles}>Community Engagement</h4>
+              <h4 style={leadershipItemTitleStyles}>Voluntary & Community Engagement</h4>
               <ul style={leadershipListStyles}>
                 <li style={leadershipListItemStyles}>Trained peers in multimedia skills (projection, posters, photography)</li>
                 <li style={leadershipListItemStyles}>Participated in Kangaru market cleanup activity organized by University of Embu student association</li>
-                <li style={leadershipListItemStyles}>Participated in Tree planting activity organized by University of Embu</li>
-                <li style={leadershipListItemStyles}>Participated in Embu town cleanup activity</li>
+                <li style={leadershipListItemStyles}>Participated in Tree planting activity organized by University of Embu on 10th November 2023</li>
+                <li style={leadershipListItemStyles}>Participated in Embu town clean up activity organized by University of Embu on 8th October 2022</li>
               </ul>
             </div>
           </div>

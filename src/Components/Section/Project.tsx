@@ -38,14 +38,14 @@ const Projects: React.FC = () => {
       liveUrl: '#',
       category: 'Full Stack',
       status: 'completed',
-      year: '2024'
+      year: '2025'
     },
     {
       id: '2',
-      title: 'AI-Powered Expense Tracker',
-      description: 'Intelligent expense tracking with predictive analytics',
+      title: 'AI-Powered Macadamia Sales forecasting model',
+      description: 'An Intelligentsystem for predicting future sales of macadamia in kenya ',
       longDescription: 'Machine learning-powered expense tracker that analyzes spending patterns, predicts future expenses, and provides personalized financial insights and savings recommendations.',
-      technologies: ['Python', 'TensorFlow', 'React', 'FastAPI', 'PostgreSQL'],
+      technologies: ['Python', 'Lavrel', 'PHP', 'FastAPI', 'MYSQL'],
       features: [
         'AI-Powered Expense Categorization',
         'Predictive Budget Forecasting',
@@ -54,7 +54,7 @@ const Projects: React.FC = () => {
         'Multi-platform Sync',
         'Financial Goal Tracking'
       ],
-      github: '#',
+      github: 'https://github.com/honPj/macadamia_forecast-.git',
       liveUrl: '#',
       category: 'AI/ML',
       status: 'completed',
@@ -62,43 +62,24 @@ const Projects: React.FC = () => {
     },
     {
       id: '3',
-      title: 'University Management Portal',
+      title: 'Resturant Management System',
       description: 'Comprehensive university resource and student management system',
       longDescription: 'Centralized platform for managing university resources, student services, faculty coordination, and administrative operations with real-time notifications and reporting.',
       technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Tailwind'],
       features: [
-        'Resource Booking System',
-        'Student Portal & Dashboard',
-        'Faculty Management',
+        'Food ordering System',
+        'user and admin Dashboards',
+        'Resturant Management',
         'Automated Notifications',
         'Analytics Dashboard',
-        'Document Management'
+        
       ],
       github: '#',
       category: 'Web Application',
       status: 'in-progress',
       year: '2024'
     },
-    {
-      id: '4',
-      title: 'E-Commerce Analytics Dashboard',
-      description: 'Real-time analytics and insights for e-commerce businesses',
-      longDescription: 'Advanced analytics dashboard providing real-time insights into sales performance, customer behavior, inventory management, and predictive analytics for e-commerce operations.',
-      technologies: ['React', 'D3.js', 'Node.js', 'Redis', 'MySQL'],
-      features: [
-        'Real-time Sales Analytics',
-        'Customer Behavior Tracking',
-        'Inventory Optimization',
-        'Predictive Sales Forecasting',
-        'Custom Report Generation',
-        'Multi-store Management'
-      ],
-      github: '#',
-      liveUrl: '#',
-      category: 'Analytics',
-      status: 'completed',
-      year: '2023'
-    }
+    
   ];
 
   const categories = [
@@ -498,8 +479,8 @@ const Projects: React.FC = () => {
           {[
             { number: sampleProjects.length, label: 'Projects Delivered' },
             { number: 10, label: 'Technologies Mastered' },
-            { number: 100, label: 'Client Satisfaction' },
-            { number: 4, label: 'Years Experience' },
+            { number: 10, label: 'Client Satisfaction' },
+            { number: 1, label: 'Years Experience' },
           ].map((stat, index) => (
             <div key={index} style={statCardStyles}>
               <div style={statNumberStyles}>{stat.number}+</div>

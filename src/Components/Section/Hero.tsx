@@ -75,7 +75,8 @@ const Hero: React.FC = () => {
   const heroDescriptionStyles: React.CSSProperties = {
     fontSize: '1.1rem',
     lineHeight: 1.8,
-    color: '#94a3b8',
+  
+    color: '#c7ccd4ff',
     marginBottom: '40px',
     maxWidth: '600px',
   };
@@ -296,8 +297,8 @@ const Hero: React.FC = () => {
               <span style={statLabelStyles}>Projects</span>
             </div>
             <div style={statItemStyles}>
-              <span style={statNumberStyles}>4+</span>
-              <span style={statLabelStyles}>Years Experience</span>
+              <span style={statNumberStyles}>1+</span>
+              <span style={statLabelStyles}>Year Experience</span>
             </div>
             <div style={statItemStyles}>
               <span style={statNumberStyles}>100%</span>

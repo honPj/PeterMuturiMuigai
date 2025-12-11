@@ -16,11 +16,11 @@ const Skills: React.FC = () => {
       title: 'Programming Languages',
       color: '#3B82F6',
       skills: [
-        { name: 'Python', proficiency: 90, level: 'Expert', years: '3+' },
-        { name: 'JavaScript', proficiency: 85, level: 'Advanced', years: '3' },
-        { name: 'TypeScript', proficiency: 80, level: 'Advanced', years: '2' },
-        { name: 'Java', proficiency: 75, level: 'Intermediate', years: '2' },
-        { name: 'C', proficiency: 70, level: 'Intermediate', years: '1' }
+        { name: 'Python', proficiency: 70, level: 'Intermediate' },
+        { name: 'JavaScript', proficiency: 85, level: 'Advanced' },
+        { name: 'TypeScript', proficiency: 80, level: 'Advanced' },
+        { name: 'Java', proficiency: 55, level: 'Intermediate' },
+        { name: 'C', proficiency: 50, level: 'Intermediate' }
       ]
     },
     web: {
@@ -28,12 +28,12 @@ const Skills: React.FC = () => {
       title: 'Web Development',
       color: '#8B5CF6',
       skills: [
-        { name: 'React', proficiency: 85, level: 'Advanced', years: '2' },
-        { name: 'Angular', proficiency: 75, level: 'Intermediate', years: '1' },
-        { name: 'Node.js', proficiency: 80, level: 'Advanced', years: '2' },
-        { name: 'Express.js', proficiency: 80, level: 'Advanced', years: '2' },
-        { name: 'Hono.js', proficiency: 70, level: 'Intermediate', years: '1' },
-        { name: 'HTML5/CSS3', proficiency: 90, level: 'Expert', years: '4' }
+        { name: 'React', proficiency: 85, level: 'Expert' },
+        { name: 'Angular', proficiency: 60, level: 'Intermediate' },
+        { name: 'Node.js', proficiency: 80, level: 'Expert' },
+        { name: 'Express.js', proficiency: 80, level: 'Intermediate'},
+        { name: 'Hono.js', proficiency: 70, level: 'Intermediate' },
+        { name: 'HTML5/CSS3', proficiency: 90, level: 'Expert' }
       ]
     },
     databases: {
@@ -41,10 +41,10 @@ const Skills: React.FC = () => {
       title: 'Databases',
       color: '#10B981',
       skills: [
-        { name: 'MSSQL', proficiency: 80, level: 'Advanced', years: '2' },
-        { name: 'MySQL', proficiency: 85, level: 'Advanced', years: '3' },
-        { name: 'PostgreSQL', proficiency: 75, level: 'Intermediate', years: '2' },
-        { name: 'MongoDB', proficiency: 70, level: 'Intermediate', years: '1' }
+        { name: 'MSSQL', proficiency: 85, level: 'Expert' },
+        { name: 'MySQL', proficiency: 80, level: 'Expert' },
+        { name: 'PostgreSQL', proficiency: 45, level: 'Intermediate' },
+        { name: 'MongoDB', proficiency: 60, level: 'Intermediate' }
       ]
     },
     ai: {
@@ -52,10 +52,10 @@ const Skills: React.FC = () => {
       title: 'AI/ML & Data Analysis',
       color: '#EF4444',
       skills: [
-        { name: 'Python for AI/ML', proficiency: 80, level: 'Advanced', years: '2' },
-        { name: 'Predictive Modeling', proficiency: 75, level: 'Intermediate', years: '1' },
-        { name: 'Forecasting Systems', proficiency: 70, level: 'Intermediate', years: '1' },
-        { name: 'Data Analysis', proficiency: 85, level: 'Advanced', years: '3' }
+        { name: 'Python for AI/ML', proficiency: 50, level: 'Intermediate'},
+        { name: 'Predictive Modeling', proficiency: 45, level: 'Intermediate'},
+        { name: 'Forecasting Systems', proficiency: 40, level: 'Intermediate' },
+        { name: 'Data Analysis', proficiency: 55, level: 'Intermediate' }
       ]
     },
     networking: {
@@ -63,10 +63,10 @@ const Skills: React.FC = () => {
       title: 'Networking & Security',
       color: '#F59E0B',
       skills: [
-        { name: 'Network Configuration', proficiency: 85, level: 'Advanced', years: '3' },
-        { name: 'Cybersecurity', proficiency: 80, level: 'Advanced', years: '2' },
-        { name: 'Cable Termination', proficiency: 90, level: 'Expert', years: '3' },
-        { name: 'Troubleshooting', proficiency: 90, level: 'Expert', years: '4' }
+        { name: 'Network Configuration', proficiency: 65, level: 'Intermediate'},
+        { name: 'Cybersecurity', proficiency: 30, level: 'Entry'},
+        { name: 'Cable Termination', proficiency: 90, level: 'Expert' },
+        { name: 'Troubleshooting', proficiency: 70, level: 'Intermediate' }
       ]
     },
     design: {
@@ -74,10 +74,10 @@ const Skills: React.FC = () => {
       title: 'Multimedia & Design',
       color: '#EC4899',
       skills: [
-        { name: 'Graphic Design', proficiency: 80, level: 'Advanced', years: '3' },
-        { name: 'Video Production', proficiency: 75, level: 'Intermediate', years: '2' },
-        { name: 'Photography', proficiency: 85, level: 'Advanced', years: '3' },
-        { name: 'Digital Content Creation', proficiency: 90, level: 'Expert', years: '4' }
+        { name: 'Graphic Design', proficiency: 80, level: 'Expert' },
+        { name: 'Video Production', proficiency: 75, level: 'Intermediate' },
+        { name: 'Photography', proficiency: 75, level: 'Intermediate' },
+        { name: 'Digital Content Creation', proficiency: 60, level: 'Intermediate' }
       ]
     }
   };
@@ -499,7 +499,7 @@ const Skills: React.FC = () => {
                         <span style={skillLevelStyles}>{skill.level}</span>
                       </div>
                       <div style={skillMetaStyles}>
-                        <span>{skill.years} years</span>
+                        
                       </div>
                     </div>
                     <div style={skillBarStyles}>

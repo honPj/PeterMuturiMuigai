@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from './ThemContext';
-import { FaSun, FaMoon, FaBars, FaTimes, FaHome, FaUser, FaFileAlt, FaCode, FaProjectDiagram, FaBlog, FaEnvelope } from 'react-icons/fa';
+import { FaSun, FaMoon, FaBars, FaTimes } from 'react-icons/fa';
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
