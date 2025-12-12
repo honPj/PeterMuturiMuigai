@@ -397,7 +397,7 @@ const Hero: React.FC = () => {
         <div style={heroImageStyles}>
           <div style={imageWrapperStyles}>
             <img 
-              src="/src/assets/WhatsApp Image 2025-12-11 at 8.49.39 AM.jpeg" 
+              src="/src/assets/profile.jpeg" 
               alt="Peter Muturi Muigai" 
               style={profileImageStyles}
             />
