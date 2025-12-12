@@ -197,11 +197,11 @@ const Blog: React.FC = () => {
     marginBottom: '4rem',
   };
 
-  const featuredGridStyles = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-    gap: '2rem',
-  };
+  // const featuredGridStyles = {
+  //   display: 'grid',
+  //   gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+  //   gap: '2rem',
+  // };
 
   const featuredCardStyles = {
     backgroundColor: 'var(--color-surface)',

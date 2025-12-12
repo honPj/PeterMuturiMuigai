@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { SITE_INFO } from '../../Utils/constants';
-import { FaGithub, FaLinkedin, FaDownload, FaCode, FaTools, FaRocket, FaExternalLinkAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaDownload, FaCode, FaTools, FaRocket,  } from 'react-icons/fa';
 
 const Hero: React.FC = () => {
   // Main container styles
