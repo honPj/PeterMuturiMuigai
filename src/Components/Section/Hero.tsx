@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { SITE_INFO } from '../../Utils/constants';
 import { FaGithub, FaLinkedin, FaDownload, FaCode, FaTools, FaRocket,  } from 'react-icons/fa';
-
+import profileImage from '../../assets/profile.jpeg';
 const Hero: React.FC = () => {
   // Main container styles
   const sectionStyles: React.CSSProperties = {
@@ -397,7 +397,7 @@ const Hero: React.FC = () => {
         <div style={heroImageStyles}>
           <div style={imageWrapperStyles}>
             <img 
-              src="/src/assets/profile.jpeg" 
+              src={profileImage}
               alt="Peter Muturi Muigai" 
               style={profileImageStyles}
             />
