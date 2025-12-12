@@ -164,7 +164,7 @@ const Resume: React.FC = () => {
               Education Background
             </h3>
             <div className="education-grid">
-              {education.map((edu, index) => (
+              {education.map((edu) => (
                 <div key={edu.id} className="education-card">
                   <div className="education-header">
                     <h4 className="education-degree">{edu.degree}</h4>
@@ -189,7 +189,7 @@ const Resume: React.FC = () => {
               Certifications & Training
             </h3>
             <div className="certifications-grid">
-              {certifications.map((cert, index) => (
+              {certifications.map((cert) => (
                 <div key={cert.id} className="certification-card">
                   <div className="certification-icon">
                     <FaCertificate />
@@ -209,7 +209,7 @@ const Resume: React.FC = () => {
           <div className="timeline-container">
             <div className="timeline-line"></div>
             <div className="timeline">
-              {experiences.map((exp, index) => (
+              {experiences.map((exp) => (
                 <div key={exp.id} className="timeline-item">
                   <div className="timeline-marker">
                     <FaBriefcase />

@@ -5,7 +5,6 @@ interface BlogPost {
   id: string;
   title: string;
   excerpt: string;
-  content: string;
   author: string;
   publishedDate: string;
   category: string;
@@ -27,7 +26,6 @@ const Blog: React.FC = () => {
       id: '1',
       title: 'Building Scalable React Applications with TypeScript',
       excerpt: 'Learn advanced patterns and best practices for building maintainable and scalable React applications using TypeScript.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-02-15',
       category: 'Frontend',
@@ -41,7 +39,6 @@ const Blog: React.FC = () => {
       id: '2',
       title: 'Microservices Architecture: Patterns and Anti-patterns',
       excerpt: 'A comprehensive guide to designing robust microservices architectures while avoiding common pitfalls.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-02-10',
       category: 'Backend',
@@ -55,7 +52,6 @@ const Blog: React.FC = () => {
       id: '3',
       title: 'Machine Learning in Production: From Model to Deployment',
       excerpt: 'Practical guide to deploying machine learning models in production environments with monitoring and scaling.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-02-05',
       category: 'AI/ML',
@@ -69,7 +65,6 @@ const Blog: React.FC = () => {
       id: '4',
       title: 'Database Optimization Techniques for High-Traffic Applications',
       excerpt: 'Advanced database optimization strategies to handle millions of requests while maintaining performance.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-01-28',
       category: 'Database',
@@ -83,7 +78,6 @@ const Blog: React.FC = () => {
       id: '5',
       title: 'Modern CSS Grid & Flexbox: Advanced Layout Techniques',
       excerpt: 'Master complex layout challenges using CSS Grid and Flexbox with real-world examples and patterns.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-01-20',
       category: 'Frontend',
@@ -97,7 +91,6 @@ const Blog: React.FC = () => {
       id: '6',
       title: 'Container Orchestration with Kubernetes: A Practical Guide',
       excerpt: 'Step-by-step guide to container orchestration, scaling, and management using Kubernetes in production.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-01-15',
       category: 'DevOps',
@@ -111,7 +104,6 @@ const Blog: React.FC = () => {
       id: '7',
       title: 'Real-time Applications with WebSockets and Socket.io',
       excerpt: 'Building scalable real-time applications using WebSockets and Socket.io with Node.js and React.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-01-10',
       category: 'Full Stack',
@@ -125,7 +117,6 @@ const Blog: React.FC = () => {
       id: '8',
       title: 'Progressive Web Apps: From Concept to Implementation',
       excerpt: 'Complete guide to building Progressive Web Apps with offline capabilities and native app features.',
-      content: '',
       author: 'Peter Muturi',
       publishedDate: '2024-01-05',
       category: 'Frontend',
@@ -139,11 +130,6 @@ const Blog: React.FC = () => {
 
   const categories = ['All', 'Frontend', 'Backend', 'AI/ML', 'Database', 'DevOps', 'Full Stack'];
   
-  const formatDate = (dateString: string) => {
-    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'short', day: 'numeric' };
-    return new Date(dateString).toLocaleDateString('en-US', options);
-  };
-
   const filteredPosts = sampleBlogPosts.filter(post => {
     const matchesCategory = selectedCategory === 'All' || post.category === selectedCategory;
     const matchesSearch = searchQuery === '' || 
@@ -158,7 +144,10 @@ const Blog: React.FC = () => {
   const currentPosts = filteredPosts.slice(indexOfFirstPost, indexOfLastPost);
   const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
 
-  const featuredPosts = sampleBlogPosts.filter(post => post.featured);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const containerStyles = {
     padding: '5rem 0',
@@ -193,110 +182,6 @@ const Blog: React.FC = () => {
     lineHeight: '1.6',
   };
 
-  const featuredSectionStyles = {
-    marginBottom: '4rem',
-  };
-
-  // const featuredGridStyles = {
-  //   display: 'grid',
-  //   gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-  //   gap: '2rem',
-  // };
-
-  const featuredCardStyles = {
-    backgroundColor: 'var(--color-surface)',
-    borderRadius: '16px',
-    overflow: 'hidden' as const,
-    boxShadow: '0 8px 30px rgba(0,0,0,0.08)',
-    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-    border: '1px solid var(--color-border)',
-    height: '100%',
-    display: 'flex' as const,
-    flexDirection: 'column' as const,
-    ':hover': {
-      transform: 'translateY(-8px)',
-      boxShadow: '0 20px 40px rgba(0,0,0,0.12)',
-    },
-  };
-
-  const featuredBadgeStyles = {
-    position: 'absolute' as const,
-    top: '1rem',
-    left: '1rem',
-    backgroundColor: 'var(--color-accent)',
-    color: 'white',
-    padding: '6px 12px',
-    borderRadius: '20px',
-    fontSize: '0.75rem',
-    fontWeight: '600',
-    zIndex: 1,
-  };
-
-  const featuredImageStyles = {
-    height: '200px',
-    background: 'linear-gradient(135deg, var(--color-accent), #4fd1c7)',
-    position: 'relative' as const,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  };
-
-  const featuredContentStyles = {
-    padding: '2rem',
-    flex: 1,
-  };
-
-  const featuredTitleStyles = {
-    fontSize: '1.5rem',
-    color: 'var(--color-primary)',
-    marginBottom: '1rem',
-    fontWeight: '700',
-    lineHeight: '1.3',
-  };
-
-  const featuredExcerptStyles = {
-    color: 'var(--color-text-light)',
-    fontSize: '0.95rem',
-    lineHeight: '1.6',
-    marginBottom: '1.5rem',
-  };
-
-  const metaContainerStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1.5rem',
-    marginBottom: '1rem',
-    flexWrap: 'wrap' as const,
-  };
-
-  const metaItemStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '0.5rem',
-    fontSize: '0.85rem',
-    color: 'var(--color-text-light)',
-  };
-
-  const tagContainerStyles = {
-    display: 'flex',
-    flexWrap: 'wrap' as const,
-    gap: '0.5rem',
-    marginBottom: '1.5rem',
-  };
-
-  const tagStyles = {
-    backgroundColor: 'var(--color-background)',
-    color: 'var(--color-accent)',
-    padding: '4px 10px',
-    borderRadius: '20px',
-    fontSize: '0.8rem',
-    fontWeight: '500',
-    border: '1px solid var(--color-border)',
-    display: 'flex',
-    alignItems: 'center',
-    gap: '4px',
-  };
-
   const readButtonStyles = {
     display: 'flex',
     alignItems: 'center',
@@ -310,11 +195,6 @@ const Blog: React.FC = () => {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     fontSize: '0.9rem',
-    ':hover': {
-      backgroundColor: 'var(--color-primary)',
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-    },
   };
 
   const controlsContainerStyles = {
@@ -340,11 +220,6 @@ const Blog: React.FC = () => {
     color: 'var(--color-text)',
     fontSize: '1rem',
     transition: 'all 0.3s ease',
-    ':focus': {
-      outline: 'none',
-      borderColor: 'var(--color-accent)',
-      boxShadow: '0 0 0 3px rgba(49, 130, 206, 0.1)',
-    },
   };
 
   const searchIconStyles = {
@@ -372,10 +247,6 @@ const Blog: React.FC = () => {
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     fontSize: '0.9rem',
-    ':hover': {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-    },
   });
 
   const blogGridStyles = {
@@ -395,10 +266,6 @@ const Blog: React.FC = () => {
     height: '100%',
     display: 'flex' as const,
     flexDirection: 'column' as const,
-    ':hover': {
-      transform: 'translateY(-5px)',
-      boxShadow: '0 12px 30px rgba(0,0,0,0.1)',
-    },
   };
 
   const cardHeaderStyles = {
@@ -438,18 +305,11 @@ const Blog: React.FC = () => {
     marginBottom: '1rem',
   };
 
-  const statsContainerStyles = {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '1rem',
-    marginBottom: '1rem',
-  };
-
-  const statStyles = {
+  const metaItemStyles = {
     display: 'flex',
     alignItems: 'center',
     gap: '0.5rem',
-    fontSize: '0.8rem',
+    fontSize: '0.85rem',
     color: 'var(--color-text-light)',
   };
 
@@ -477,10 +337,6 @@ const Blog: React.FC = () => {
     transition: 'all 0.3s ease',
     fontSize: '0.9rem',
     opacity: isDisabled ? 0.5 : 1,
-    ':hover': !isDisabled ? {
-      transform: 'translateY(-2px)',
-      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-    } : {},
   });
 
   const ctaContainerStyles = {
@@ -519,12 +375,6 @@ const Blog: React.FC = () => {
     fontSize: '1rem',
     transition: 'all 0.3s ease',
     border: '2px solid var(--color-accent)',
-    ':hover': {
-      backgroundColor: 'transparent',
-      color: 'var(--color-accent)',
-      transform: 'translateY(-3px)',
-      boxShadow: '0 8px 25px rgba(0,0,0,0.15)',
-    },
   };
 
   return (
@@ -538,76 +388,6 @@ const Blog: React.FC = () => {
             architecture, and emerging technologies.
           </p>
         </div>
-
-        {/* {featuredPosts.length > 0 && (
-          <div style={featuredSectionStyles}>
-            <h3 style={{
-              fontSize: '1.5rem',
-              color: 'var(--color-primary)',
-              marginBottom: '2rem',
-              fontWeight: '600',
-            }}>
-              Featured Articles
-            </h3>
-            <div style={featuredGridStyles}>
-              {featuredPosts.map(post => (
-                <article key={post.id} style={featuredCardStyles}>
-                  <div style={featuredImageStyles}>
-                    <span style={featuredBadgeStyles}>
-                      <FaBookOpen style={{ marginRight: '5px' }} />
-                      Featured
-                    </span>
-                    <div style={{
-                      width: '80px',
-                      height: '80px',
-                      backgroundColor: 'rgba(255,255,255,0.2)',
-                      borderRadius: '50%',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      backdropFilter: 'blur(10px)',
-                    }}>
-                      <FaBookOpen size={32} color="white" />
-                    </div>
-                  </div>
-                  
-                  <div style={featuredContentStyles}>
-                    <h3 style={featuredTitleStyles}>{post.title}</h3>
-                    <p style={featuredExcerptStyles}>{post.excerpt}</p>
-                    
-                    <div style={metaContainerStyles}>
-                      <div style={metaItemStyles}>
-                        <FaUser size={14} />
-                        {post.author}
-                      </div>
-                      <div style={metaItemStyles}>
-                        <FaCalendarAlt size={14} />
-                        {formatDate(post.publishedDate)}
-                      </div>
-                      <div style={metaItemStyles}>
-                        <FaClock size={14} />
-                        {post.readTime} min read
-                      </div>
-                    </div>
-                    
-                    <div style={tagContainerStyles}>
-                      {post.tags.slice(0, 3).map((tag, index) => (
-                        <span key={index} style={tagStyles}>
-                          <FaTag size={10} />
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                    
-                    <button style={readButtonStyles}>
-                      Read Article <FaArrowRight />
-                    </button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        )} */}
 
         <div style={controlsContainerStyles}>
           <div style={searchContainerStyles}>
@@ -660,21 +440,6 @@ const Blog: React.FC = () => {
                 <div style={cardContentStyles}>
                   <h4 style={cardTitleStyles}>{post.title}</h4>
                   <p style={cardExcerptStyles}>{post.excerpt}</p>
-                  
-                  {/* <div style={statsContainerStyles}>
-                    <div style={statStyles}>
-                      <FaEye size={12} />
-                      {post.views.toLocaleString()} views
-                    </div>
-                    <div style={statStyles}>
-                      <FaComments size={12} />
-                      {post.comments} comments
-                    </div>
-                    <div style={statStyles}>
-                      <FaClock size={12} />
-                      {post.readTime} min
-                    </div>
-                  </div> */}
                 </div>
                 
                 <div style={cardFooterStyles}>
@@ -767,11 +532,6 @@ const Blog: React.FC = () => {
       </div>
     </section>
   );
-
-  function handlePageChange(page: number) {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
 };
 
 export default Blog;
