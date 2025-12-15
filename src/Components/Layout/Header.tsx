@@ -8,6 +8,7 @@ const Header: React.FC = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const navLinks = [
     { id: 'home', path: '/', label: 'Home' },
@@ -19,22 +20,36 @@ const Header: React.FC = () => {
     { id: 'contact', path: '/contact', label: 'Contact' },
   ];
 
+  // Responsive breakpoints
+  const isMobile = windowWidth <= 768;
+  const isTablet = windowWidth > 768 && windowWidth <= 1024;
+  const isDesktop = windowWidth > 1024;
+
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleResize = () => setWindowWidth(window.innerWidth);
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('resize', handleResize);
+    
+    // Close mobile menu on resize to desktop
+    if (windowWidth > 768 && isMenuOpen) {
+      setIsMenuOpen(false);
+    }
 
-  // Check if a link is active based on current path
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [windowWidth, isMenuOpen]);
+
   const isActive = (path: string) => {
     if (path === '/' && location.pathname === '/') return true;
     if (path !== '/' && location.pathname.startsWith(path)) return true;
     return false;
   };
 
+  // Responsive Styles
   const headerStyles: React.CSSProperties = {
     position: 'fixed',
     top: 0,
@@ -42,60 +57,68 @@ const Header: React.FC = () => {
     right: 0,
     zIndex: 1000,
     transition: 'all 0.3s ease',
-    backdropFilter: 'blur(10px)',
+    backdropFilter: isMobile ? 'blur(5px)' : 'blur(10px)',
     backgroundColor: isScrolled 
       ? theme === 'dark' 
-        ? 'rgba(26, 32, 44, 0.9)' 
-        : 'rgba(255, 255, 255, 0.9)'
+        ? 'rgba(26, 32, 44, 0.95)' 
+        : 'rgba(255, 255, 255, 0.95)'
       : theme === 'dark' 
-        ? 'var(--color-background-dark, #1a202c)' 
-        : 'var(--color-background, #ffffff)',
+        ? '#1a202c' 
+        : '#ffffff',
     borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
     boxShadow: isScrolled 
       ? theme === 'dark' 
         ? '0 4px 20px rgba(0, 0, 0, 0.3)' 
         : '0 4px 20px rgba(0, 0, 0, 0.08)'
       : 'none',
+    height: isMobile ? '60px' : '70px',
   };
 
   const containerStyles: React.CSSProperties = {
-    maxWidth: '1200px',
+    maxWidth: isMobile ? '100%' : isTablet ? '100%' : '1200px',
     margin: '0 auto',
-    padding: '0 2rem',
+    padding: isMobile ? '0 15px' : isTablet ? '0 20px' : '0 2rem',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '70px',
+    height: '100%',
   };
 
   const logoStyles: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    gap: '0.75rem',
+    gap: isMobile ? '0.5rem' : '0.75rem',
     textDecoration: 'none',
+    flexShrink: 0,
   };
 
   const h1Styles: React.CSSProperties = {
     margin: 0,
-    fontSize: '1.5rem',
+    fontSize: isMobile ? '1.25rem' : isTablet ? '1.35rem' : '1.5rem',
     fontWeight: 700,
-    background: 'linear-gradient(135deg, var(--color-accent, #3182ce), #4fd1c7)',
+    background: 'linear-gradient(135deg, #3182ce, #4fd1c7)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     backgroundClip: 'text',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    maxWidth: isMobile ? '150px' : 'none',
   };
 
   const dotStyles: React.CSSProperties = {
-    width: '8px',
-    height: '8px',
-    backgroundColor: 'var(--color-accent, #3182ce)',
+    width: isMobile ? '6px' : '8px',
+    height: isMobile ? '6px' : '8px',
+    backgroundColor: '#3182ce',
     borderRadius: '50%',
     marginLeft: '4px',
+    flexShrink: 0,
   };
 
+  // Desktop Navigation
   const navStyles: React.CSSProperties = {
-    display: 'flex',
-    gap: '2rem',
+    display: isMobile ? 'none' : 'flex',
+    gap: isTablet ? '1rem' : '2rem',
     alignItems: 'center',
   };
 
@@ -104,20 +127,23 @@ const Header: React.FC = () => {
     listStyle: 'none',
     margin: 0,
     padding: 0,
-    gap: '2rem',
+    gap: isTablet ? '1rem' : '2rem',
+    flexWrap: isTablet ? 'wrap' : 'nowrap',
+    justifyContent: isTablet ? 'center' : 'flex-start',
   };
 
   const navLinkStyles = (active: boolean): React.CSSProperties => ({
     display: 'flex',
     alignItems: 'center',
-    gap: '0.5rem',
-    color: active ? 'var(--color-accent, #3182ce)' : theme === 'dark' ? '#e2e8f0' : '#4a5568',
+    gap: isTablet ? '0.25rem' : '0.5rem',
+    color: active ? '#3182ce' : theme === 'dark' ? '#e2e8f0' : '#4a5568',
     textDecoration: 'none',
     fontWeight: 600,
-    fontSize: '0.95rem',
-    padding: '0.5rem 0',
+    fontSize: isTablet ? '0.85rem' : '0.95rem',
+    padding: isTablet ? '0.25rem 0.5rem' : '0.5rem 0',
     transition: 'all 0.3s ease',
     position: 'relative',
+    whiteSpace: 'nowrap',
   });
 
   const activeIndicatorStyles: React.CSSProperties = {
@@ -126,19 +152,19 @@ const Header: React.FC = () => {
     left: 0,
     right: 0,
     height: '2px',
-    backgroundColor: 'var(--color-accent, #3182ce)',
+    backgroundColor: '#3182ce',
     borderRadius: '2px',
   };
 
   const controlsStyles: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
+    gap: isMobile ? '0.75rem' : '1rem',
   };
 
   const themeToggleStyles: React.CSSProperties = {
-    width: '44px',
-    height: '24px',
+    width: isMobile ? '40px' : '44px',
+    height: isMobile ? '22px' : '24px',
     backgroundColor: theme === 'dark' ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.1)',
     borderRadius: '12px',
     position: 'relative',
@@ -148,15 +174,16 @@ const Header: React.FC = () => {
     display: 'flex',
     alignItems: 'center',
     transition: 'all 0.3s ease',
+    flexShrink: 0,
   };
 
   const themeToggleInnerStyles: React.CSSProperties = {
-    width: '20px',
-    height: '20px',
+    width: isMobile ? '18px' : '20px',
+    height: isMobile ? '18px' : '20px',
     backgroundColor: theme === 'dark' ? '#e2e8f0' : '#ffffff',
     borderRadius: '50%',
     position: 'absolute',
-    left: theme === 'dark' ? 'calc(100% - 22px)' : '2px',
+    left: theme === 'dark' ? `calc(100% - ${isMobile ? '20px' : '22px'})` : '2px',
     transition: 'all 0.3s ease',
     display: 'flex',
     alignItems: 'center',
@@ -165,32 +192,34 @@ const Header: React.FC = () => {
   };
 
   const themeIconStyles: React.CSSProperties = {
-    fontSize: '10px',
+    fontSize: isMobile ? '8px' : '10px',
     color: theme === 'dark' ? '#1a202c' : '#f6ad55',
   };
 
   const menuButtonStyles: React.CSSProperties = {
-    display: 'none',
+    display: isMobile ? 'block' : 'none',
     backgroundColor: 'transparent',
     border: 'none',
     color: theme === 'dark' ? '#e2e8f0' : '#4a5568',
-    fontSize: '1.5rem',
+    fontSize: '1.25rem',
     cursor: 'pointer',
     padding: '0.5rem',
+    flexShrink: 0,
   };
 
+  // Mobile Menu Styles
   const mobileMenuStyles: React.CSSProperties = {
     position: 'fixed',
-    top: '70px',
+    top: isMobile ? '60px' : '70px',
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: theme === 'dark' ? 'var(--color-background-dark, #1a202c)' : 'var(--color-background, #ffffff)',
+    backgroundColor: theme === 'dark' ? '#1a202c' : '#ffffff',
     zIndex: 999,
-    padding: '2rem',
+    padding: isMobile ? '1.5rem' : '2rem',
     display: 'flex',
     flexDirection: 'column',
-    gap: '1.5rem',
+    gap: '0.75rem',
     transform: isMenuOpen ? 'translateX(0)' : 'translateX(-100%)',
     transition: 'transform 0.3s ease',
     overflowY: 'auto',
@@ -200,11 +229,11 @@ const Header: React.FC = () => {
     display: 'flex',
     alignItems: 'center',
     gap: '1rem',
-    color: active ? 'var(--color-accent, #3182ce)' : theme === 'dark' ? '#e2e8f0' : '#4a5568',
+    color: active ? '#3182ce' : theme === 'dark' ? '#e2e8f0' : '#4a5568',
     textDecoration: 'none',
     fontWeight: 600,
-    fontSize: '1.1rem',
-    padding: '1rem',
+    fontSize: '1rem',
+    padding: isMobile ? '0.875rem' : '1rem',
     borderRadius: '8px',
     backgroundColor: active 
       ? theme === 'dark' 
@@ -212,19 +241,8 @@ const Header: React.FC = () => {
         : 'rgba(49, 130, 206, 0.1)'
       : 'transparent',
     transition: 'all 0.3s ease',
+    minHeight: '44px', // Minimum touch target size
   });
-
-  // Media query for responsive design
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth > 768 && isMenuOpen) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMenuOpen]);
 
   return (
     <>
@@ -232,12 +250,12 @@ const Header: React.FC = () => {
         <div style={containerStyles}>
           <Link to="/" style={logoStyles}>
             <h1 style={h1Styles}>
-              Peter Muturi
+              {isMobile ? 'Peter M' : 'Peter Muturi'}
               <span style={dotStyles}></span>
             </h1>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop & Tablet Navigation */}
           <nav style={navStyles}>
             <ul style={navListStyles}>
               {navLinks.map(link => {
@@ -250,7 +268,6 @@ const Header: React.FC = () => {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        
                         {link.label}
                       </span>
                       {active && <span style={activeIndicatorStyles}></span>}
@@ -300,7 +317,6 @@ const Header: React.FC = () => {
               style={mobileNavLinkStyles(active)}
               onClick={() => setIsMenuOpen(false)}
             >
-             
               {link.label}
             </Link>
           );
@@ -308,7 +324,7 @@ const Header: React.FC = () => {
         
         <div style={{
           marginTop: 'auto',
-          padding: '2rem 1rem',
+          padding: isMobile ? '1.5rem 0.5rem' : '2rem 1rem',
           borderTop: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
         }}>
           <div style={{
@@ -318,7 +334,7 @@ const Header: React.FC = () => {
           }}>
             <span style={{
               color: theme === 'dark' ? '#e2e8f0' : '#4a5568',
-              fontSize: '0.9rem',
+              fontSize: isMobile ? '0.85rem' : '0.9rem',
             }}>
               Switch theme:
             </span>
@@ -326,21 +342,21 @@ const Header: React.FC = () => {
               onClick={toggleTheme}
               style={{
                 ...themeToggleStyles,
-                width: '60px',
-                height: '30px',
+                width: isMobile ? '50px' : '60px',
+                height: isMobile ? '26px' : '30px',
               }}
               aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
               <div style={{
                 ...themeToggleInnerStyles,
-                width: '26px',
-                height: '26px',
-                left: theme === 'dark' ? 'calc(100% - 28px)' : '2px',
+                width: isMobile ? '22px' : '26px',
+                height: isMobile ? '22px' : '26px',
+                left: theme === 'dark' ? `calc(100% - ${isMobile ? '24px' : '28px'})` : '2px',
               }}>
                 {theme === 'dark' ? (
-                  <FaMoon style={{ fontSize: '12px', color: '#1a202c' }} />
+                  <FaMoon style={{ fontSize: isMobile ? '10px' : '12px', color: '#1a202c' }} />
                 ) : (
-                  <FaSun style={{ fontSize: '12px', color: '#f6ad55' }} />
+                  <FaSun style={{ fontSize: isMobile ? '10px' : '12px', color: '#f6ad55' }} />
                 )}
               </div>
             </button>
@@ -353,7 +369,7 @@ const Header: React.FC = () => {
         <div 
           style={{
             position: 'fixed',
-            top: '70px',
+            top: isMobile ? '60px' : '70px',
             left: 0,
             right: 0,
             bottom: 0,
@@ -364,25 +380,47 @@ const Header: React.FC = () => {
         />
       )}
 
-      {/* Responsive styles */}
+      {/* CSS for animations and additional responsive tweaks */}
       <style>{`
-        @media (max-width: 768px) {
-          nav {
-            display: none;
+        /* Smooth transitions */
+        * {
+          -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* Better touch interactions on mobile */
+        @media (hover: none) and (pointer: coarse) {
+          button, a {
+            min-height: 44px;
+            min-width: 44px;
           }
           
-          .menu-button {
-            display: block;
+          .mobile-nav-link {
+            padding: 16px !important;
           }
         }
         
-        @media (min-width: 769px) {
-          .mobile-menu {
-            display: none;
+        /* Tablet specific adjustments */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .nav-list {
+            max-width: 600px;
+            justify-content: center;
           }
-          
-          .menu-button {
-            display: none;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+          .logo-text {
+            background: none !important;
+            -webkit-text-fill-color: ${theme === 'dark' ? '#ffffff' : '#000000'} !important;
+            color: ${theme === 'dark' ? '#ffffff' : '#000000'} !important;
+          }
+        }
+        
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            transition-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
           }
         }
       `}</style>

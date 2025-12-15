@@ -14,7 +14,7 @@ const Skills: React.FC = () => {
     programming: {
       icon: <FaCode />,
       title: 'Programming Languages',
-      color: 'var(--color-primary)',
+      color: '#8B5CF6',
       skills: [
         { name: 'Python', proficiency: 70, level: 'Intermediate' },
         { name: 'JavaScript', proficiency: 85, level: 'Advanced' },
