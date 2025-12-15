@@ -5,8 +5,8 @@ import emailjs from '@emailjs/browser';
 const Contact: React.FC = () => {
   const form = useRef<HTMLFormElement>(null);
   const [formData, setFormData] = useState({
-    from_name: '',    // Changed from 'name'
-    reply_to: '',     // Changed from 'email'
+    from_name: '',
+    reply_to: '',
     subject: '',
     message: '',
   });
@@ -24,7 +24,6 @@ const Contact: React.FC = () => {
   // Responsive breakpoints
   const isMobile = windowWidth <= 768;
   const isTablet = windowWidth > 768 && windowWidth <= 1024;
-  const isDesktop = windowWidth > 1024;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -48,7 +47,6 @@ const Contact: React.FC = () => {
 
   // Email validation function
   const validateEmail = (email: string): boolean => {
-    // Basic email validation - must contain @ and have a proper format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
@@ -73,7 +71,7 @@ const Contact: React.FC = () => {
       errors.reply_to = 'Email address is required';
       isValid = false;
     } else if (!validateEmail(formData.reply_to)) {
-      errors.reply_to = 'Please enter a valid email address (must contain @ and domain)';
+      errors.reply_to = 'Please enter a valid email address';
       isValid = false;
     }
 
@@ -110,7 +108,6 @@ const Contact: React.FC = () => {
     
     try {
       if (form.current) {
-        // Send email using EmailJS with your credentials
         const result = await emailjs.sendForm(
           'service_y3a62rg',
           'template_wezqqoh',
@@ -532,8 +529,8 @@ const Contact: React.FC = () => {
                 <label style={labelStyles}>Full Name *</label>
                 <input
                   type="text"
-                  name="from_name"  // This matches the state key
-                  value={formData.from_name}  // This matches the state
+                  name="from_name"
+                  value={formData.from_name}
                   onChange={handleChange}
                   required
                   placeholder="Enter your full name"
@@ -551,8 +548,8 @@ const Contact: React.FC = () => {
                 <label style={labelStyles}>Email Address *</label>
                 <input
                   type="email"
-                  name="reply_to"  // This matches the state key
-                  value={formData.reply_to}  // This matches the state
+                  name="reply_to"
+                  value={formData.reply_to}
                   onChange={handleChange}
                   required
                   placeholder="Enter your email address"
@@ -604,7 +601,7 @@ const Contact: React.FC = () => {
                   opacity: !isFormValid() ? 0.7 : 1,
                   cursor: !isFormValid() ? 'not-allowed' : 'pointer',
                 }}
-                title={!isFormValid() ? 'Please fill in all required fields with valid information' : 'Send message'}
+                title={!isFormValid() ? 'Please fill in all required fields' : 'Send message'}
               >
                 {isSubmitting ? (
                   <>
@@ -629,7 +626,7 @@ const Contact: React.FC = () => {
               {isSubmitted && (
                 <div style={successMessageStyles}>
                   <FaCheckCircle />
-                  Thank you! Your message has been sent successfully. I'll get back to you soon.
+                  Thank you! Your message has been sent successfully.
                 </div>
               )}
 
@@ -683,7 +680,6 @@ const Contact: React.FC = () => {
           to { transform: rotate(360deg); }
         }
         
-        /* Hover effects for social links */
         a:hover {
           transform: translateY(-3px);
           box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -691,7 +687,6 @@ const Contact: React.FC = () => {
           color: var(--color-accent);
         }
         
-        /* Hover effects for submit button */
         button:hover:not(:disabled) {
           background-color: var(--color-primary);
           transform: translateY(-3px);
@@ -704,32 +699,28 @@ const Contact: React.FC = () => {
           transform: none;
         }
         
-        /* Focus states for inputs */
         input:focus, textarea:focus {
           outline: none;
           border-color: var(--color-accent);
           box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
         }
         
-        /* Touch device optimizations */
         @media (hover: none) and (pointer: coarse) {
           a, button {
             min-height: 44px;
           }
           
           input, textarea {
-            font-size: 16px; /* Prevents zoom on iOS */
+            font-size: 16px;
           }
         }
         
-        /* High contrast mode support */
         @media (prefers-contrast: high) {
           .info-card, .form-card, .stat-card {
             border: 2px solid var(--color-text);
           }
         }
         
-        /* Reduced motion */
         @media (prefers-reduced-motion: reduce) {
           * {
             transition-duration: 0.01ms !important;
@@ -741,7 +732,6 @@ const Contact: React.FC = () => {
           }
         }
         
-        /* Additional responsive tweaks for very small screens */
         @media (max-width: 480px) {
           .contact-header h2 {
             font-size: 1.75rem !important;
@@ -756,7 +746,6 @@ const Contact: React.FC = () => {
           }
         }
         
-        /* Landscape orientation adjustments */
         @media (max-height: 600px) and (orientation: landscape) {
           .contact-container {
             padding-top: 2rem !important;
