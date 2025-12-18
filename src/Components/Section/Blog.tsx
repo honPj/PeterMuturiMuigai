@@ -13,6 +13,7 @@ interface BlogPost {
   featured: boolean;
   views: number;
   comments: number;
+  link: string; // Added link property
 }
 
 const Blog: React.FC = () => {
@@ -33,7 +34,8 @@ const Blog: React.FC = () => {
       readTime: 8,
       featured: true,
       views: 1245,
-      comments: 42
+      comments: 42,
+      link: 'https://dev.to/7sigma/building-scalable-web-apps-in-2025-react-typescript-and-pragmatic-infrastructure-3ilh' // Added link
     },
     {
       id: '2',
@@ -46,7 +48,8 @@ const Blog: React.FC = () => {
       readTime: 12,
       featured: true,
       views: 1890,
-      comments: 56
+      comments: 56,
+      link: 'https://www.researchgate.net/publication/338005709_Collection_and_Identification_Of_Microservices_Patterns_And_Antipatterns' // Added link
     },
     {
       id: '3',
@@ -59,7 +62,8 @@ const Blog: React.FC = () => {
       readTime: 10,
       featured: false,
       views: 980,
-      comments: 31
+      comments: 31,
+      link: 'https://iaeme.com/MasterAdmin/Journal_uploads/IJRCAIT/VOLUME_7_ISSUE_2/IJRCAIT_07_02_125.pdf' // Added link
     },
     {
       id: '4',
@@ -72,7 +76,8 @@ const Blog: React.FC = () => {
       readTime: 9,
       featured: false,
       views: 1120,
-      comments: 38
+      comments: 38,
+      link: 'https://ijcsmc.com/docs/papers/November2023/V12I11202313.pdf' // Added link
     },
     {
       id: '5',
@@ -85,7 +90,8 @@ const Blog: React.FC = () => {
       readTime: 7,
       featured: true,
       views: 1560,
-      comments: 47
+      comments: 47,
+      link: 'https://www.scribd.com/document/919998851/04-CSS-Grid-and-Flexbox-Layouts' // Added link
     },
     {
       id: '6',
@@ -98,7 +104,8 @@ const Blog: React.FC = () => {
       readTime: 11,
       featured: false,
       views: 1340,
-      comments: 39
+      comments: 39,
+      link: 'https://www.scribd.com/document/877525203/Container-Orchestration-With-Kubernetes' // Added link
     },
     {
       id: '7',
@@ -111,7 +118,8 @@ const Blog: React.FC = () => {
       readTime: 6,
       featured: false,
       views: 890,
-      comments: 28
+      comments: 28,
+      link: 'https://www.researchgate.net/publication/378871302_Real-time_Interactivity_in_Hybrid_Applications_With_Web_Sockets' // Added link
     },
     {
       id: '8',
@@ -124,7 +132,8 @@ const Blog: React.FC = () => {
       readTime: 8,
       featured: false,
       views: 1020,
-      comments: 33
+      comments: 33,
+      link: 'https://scand.com/wp-content/uploads/2020/10/Progressive-Web-Apps_Guide.pdf' // Added link
     }
   ];
 
@@ -147,6 +156,16 @@ const Blog: React.FC = () => {
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  // Function to handle read button click
+  const handleReadClick = (link: string) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
+  };
+
+  // Function to handle card click (optional - if you want entire card to be clickable)
+  const handleCardClick = (link: string) => {
+    window.open(link, '_blank', 'noopener,noreferrer');
   };
 
   const containerStyles = {
@@ -256,7 +275,7 @@ const Blog: React.FC = () => {
     marginBottom: '3rem',
   };
 
-  const blogCardStyles = {
+  const blogCardStyles = (hasLink: boolean) => ({
     backgroundColor: 'var(--color-surface)',
     borderRadius: '16px',
     overflow: 'hidden' as const,
@@ -266,7 +285,8 @@ const Blog: React.FC = () => {
     height: '100%',
     display: 'flex' as const,
     flexDirection: 'column' as const,
-  };
+    cursor: hasLink ? 'pointer' : 'default',
+  });
 
   const cardHeaderStyles = {
     padding: '1.5rem 1.5rem 0.5rem',
@@ -432,7 +452,14 @@ const Blog: React.FC = () => {
         <div style={blogGridStyles}>
           {currentPosts.length > 0 ? (
             currentPosts.map(post => (
-              <article key={post.id} style={blogCardStyles}>
+              <article 
+                key={post.id} 
+                style={blogCardStyles(!!post.link)}
+                onClick={() => post.link && handleCardClick(post.link)}
+                onKeyPress={(e) => post.link && e.key === 'Enter' && handleCardClick(post.link)}
+                role={post.link ? "button" : "article"}
+                tabIndex={post.link ? 0 : -1}
+              >
                 <div style={cardHeaderStyles}>
                   <span style={categoryLabelStyles}>{post.category}</span>
                 </div>
@@ -448,11 +475,19 @@ const Blog: React.FC = () => {
                       <FaUser size={12} />
                       {post.author}
                     </div>
-                    <button style={{
-                      ...readButtonStyles,
-                      padding: '0.5rem 1rem',
-                      fontSize: '0.85rem',
-                    }}>
+                    <button 
+                      style={{
+                        ...readButtonStyles,
+                        padding: '0.5rem 1rem',
+                        fontSize: '0.85rem',
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent triggering card click
+                        handleReadClick(post.link);
+                      }}
+                      disabled={!post.link}
+                      title={post.link ? `Read: ${post.title}` : 'No link available'}
+                    >
                       Read <FaArrowRight size={12} />
                     </button>
                   </div>

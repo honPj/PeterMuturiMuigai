@@ -1,10 +1,53 @@
 import React, { useState } from 'react';
-import { FaBriefcase, FaGraduationCap, FaCertificate, FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
+import { FaBriefcase, FaGraduationCap, FaCertificate, FaMapMarkerAlt, FaCalendarAlt, FaDownload } from 'react-icons/fa';
+
+// Define TypeScript interfaces
+interface Experience {
+  id: number;
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  description: string[];
+  type: 'work';
+  current: boolean;
+}
+
+interface Education {
+  id: number;
+  degree: string;
+  institution: string;
+  period: string;
+  description: string[];
+  type: 'education';
+}
+
+interface Certification {
+  id: number;
+  name: string;
+  issuer: string;
+  year: string;
+  type: 'certification';
+}
 
 const Resume: React.FC = () => {
+  
   const [activeTab, setActiveTab] = useState<'education' | 'certifications' | 'experience'>('education');
 
-  const experiences = [
+  const handleDownloadResume = () => {
+    // Replace with your actual resume file path
+    
+    // Create a temporary anchor element
+    const link = document.createElement('a');
+    link.href = 'https://drive.google.com/file/d/1DnIF4m2-J1yJzXWpHlss5lu3Gd-x3R-0/view?usp=sharing';
+    link.download = 'Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Type the arrays with proper interfaces
+  const experiences: Experience[] = [
     {
       id: 1,
       title: 'ICT Intern',
@@ -71,7 +114,7 @@ const Resume: React.FC = () => {
     }
   ];
 
-  const education = [
+  const education: Education[] = [
     {
       id: 1,
       degree: 'Bachelor of Business Information Technology',
@@ -96,7 +139,7 @@ const Resume: React.FC = () => {
     }
   ];
 
-  const certifications = [
+  const certifications: Certification[] = [
     {
       id: 1,
       name: 'Full Stack Developer',
@@ -130,12 +173,25 @@ const Resume: React.FC = () => {
   return (
     <section className="resume-section">
       <div className="resume-container">
-        <div className="section-header">
-          <h2 className="section-title">My Resume</h2>
-          <div className="section-divider"></div>
-          <p className="section-subtitle">Professional Journey & Education</p>
+        {/* Header with download button on the right */}
+        <div className="section-header-with-button">
+          <div className="header-content">
+            <h2 className="section-title">My Resume</h2>
+            <div className="section-divider"></div>
+            <p className="section-subtitle">Professional Journey & Education</p>
+          </div>
+          
+          
         </div>
+        <button 
+            className="download-resume-btn"
+            onClick={handleDownloadResume}
+          >
+            <FaDownload className="download-icon" />
+            Download Resume
+          </button>
 
+        {/* Tabs and content */}
         <div className="resume-tabs">
           <button
             className={`tab-button ${activeTab === 'education' ? 'active' : ''}`}
@@ -157,6 +213,7 @@ const Resume: React.FC = () => {
           </button>
         </div>
 
+        {/* Tab content */}
         {activeTab === 'education' && (
           <div className="education-section">
             <h3 className="subsection-title">
@@ -285,9 +342,19 @@ const Resume: React.FC = () => {
           z-index: 2;
         }
 
-        .section-header {
-          text-align: center;
+        /* Updated header with button layout */
+        .section-header-with-button {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
           margin-bottom: 60px;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+
+        .header-content {
+          flex: 1;
+          min-width: 300px;
         }
 
         .section-title {
@@ -304,7 +371,7 @@ const Resume: React.FC = () => {
           width: 80px;
           height: 4px;
           background: var(--hero-badge-gradient);
-          margin: 0 auto 16px;
+          margin: 0 0 16px 0;
           border-radius: 2px;
           transition: background 0.3s ease;
         }
@@ -316,6 +383,43 @@ const Resume: React.FC = () => {
           transition: color 0.3s ease;
         }
 
+        /* Download Resume Button Styles */
+        .download-resume-btn {
+          background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+          color: white;
+          border: none;
+          padding: 14px 32px;
+          font-size: 1rem;
+          font-weight: 600;
+          border-radius: 50px;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          box-shadow: 0 4px 15px rgba(var(--color-accent-rgb), 0.3);
+          white-space: nowrap;
+          margin-top: 10px;
+          height: fit-content;
+          align-self: center;
+        }
+
+        .download-resume-btn:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 25px rgba(var(--color-accent-rgb), 0.4);
+          background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+        }
+
+        .download-resume-btn:active {
+          transform: translateY(-1px);
+        }
+
+        .download-icon {
+          font-size: 0.9em;
+        }
+
+        /* Rest of your existing styles */
         .resume-tabs {
           display: flex;
           justify-content: center;
@@ -710,6 +814,21 @@ const Resume: React.FC = () => {
             padding: 60px 0;
           }
 
+          .section-header-with-button {
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 30px;
+          }
+
+          .header-content {
+            width: 100%;
+          }
+
+          .section-divider {
+            margin: 0 auto 16px;
+          }
+
           .section-title {
             font-size: 2rem;
           }
@@ -771,6 +890,11 @@ const Resume: React.FC = () => {
 
           .subsection-title {
             font-size: 1.5rem;
+          }
+
+          .download-resume-btn {
+            width: 100%;
+            padding: 12px 24px;
           }
 
           .certifications-grid {

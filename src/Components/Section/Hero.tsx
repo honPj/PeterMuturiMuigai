@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { SITE_INFO } from '../../Utils/constants';
 import { FaGithub, FaLinkedin, FaDownload, FaCode, FaTools, FaRocket,  } from 'react-icons/fa';
 import profileImage from '../../assets/profile.jpeg';
+
 const Hero: React.FC = () => {
   // Main container styles
   const sectionStyles: React.CSSProperties = {
@@ -212,6 +213,9 @@ const Hero: React.FC = () => {
   const cvGoogleDriveLink = 'https://drive.google.com/file/d/1TULXbQw0UPWSDkzYJJDwtj7olDv0Rvd5/view?usp=drive_link';
   const cvDirectDownloadLink = 'https://drive.google.com/uc?export=download&id=1TULXbQw0UPWSDkzYJJDwtj7olDv0Rvd5';
 
+  // Social Links
+  const linkedinUrl = 'https://www.linkedin.com/in/peter-muturi-303089306';
+
   // Floating elements
   const floatingElements = [
     { icon: <FaCode />, top: '10%', left: '5%', delay: '0s' },
@@ -375,11 +379,12 @@ const Hero: React.FC = () => {
               }}
               onMouseEnter={() => setHoverState(prev => ({...prev, github: true}))}
               onMouseLeave={() => setHoverState(prev => ({...prev, github: false}))}
+              title="Visit my GitHub profile"
             >
               <FaGithub />
             </a>
             <a 
-              href={SITE_INFO.linkedin} 
+              href={linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               style={{
@@ -388,6 +393,7 @@ const Hero: React.FC = () => {
               }}
               onMouseEnter={() => setHoverState(prev => ({...prev, linkedin: true}))}
               onMouseLeave={() => setHoverState(prev => ({...prev, linkedin: false}))}
+              title="Connect with me on LinkedIn"
             >
               <FaLinkedin />
             </a>
