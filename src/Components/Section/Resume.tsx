@@ -35,15 +35,8 @@ const Resume: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'education' | 'certifications' | 'experience'>('education');
 
   const handleDownloadResume = () => {
-    // Replace with your actual resume file path
-    
-    // Create a temporary anchor element
-    const link = document.createElement('a');
-    link.href = 'https://drive.google.com/file/d/1DnIF4m2-J1yJzXWpHlss5lu3Gd-x3R-0/view?usp=sharing';
-    link.download = 'Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open in new tab for Google Drive
+    window.open('https://drive.google.com/file/d/1DnIF4m2-J1yJzXWpHlss5lu3Gd-x3R-0/view?usp=drive_link', '_blank');
   };
 
   // Type the arrays with proper interfaces
@@ -181,15 +174,15 @@ const Resume: React.FC = () => {
             <p className="section-subtitle">Professional Journey & Education</p>
           </div>
           
-          
-        </div>
-        <button 
+          <button 
             className="download-resume-btn"
             onClick={handleDownloadResume}
+            aria-label="Download Resume"
           >
             <FaDownload className="download-icon" />
             Download Resume
           </button>
+        </div>
 
         {/* Tabs and content */}
         <div className="resume-tabs">
@@ -325,6 +318,61 @@ const Resume: React.FC = () => {
       </div>
 
       <style >{`
+        :root {
+          /* Light Mode Colors */
+          --color-light-primary: #2563eb;
+          --color-light-primary-dark: #1d4ed8;
+          --color-light-accent: #3b82f6;
+          --color-light-accent-light: #60a5fa;
+          --color-light-accent-dark: #1e40af;
+          --color-light-accent-rgb: 59, 130, 246;
+          
+          --color-light-surface: #ffffff;
+          --color-light-border: #e5e7eb;
+          --color-light-text: #1f2937;
+          --color-light-text-light: #6b7280;
+          --color-light-secondary: #4b5563;
+          
+          --hero-light-bg-gradient: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+          --hero-light-text-color: #1e293b;
+          --hero-light-description-color: #64748b;
+          --hero-light-badge-gradient: linear-gradient(135deg, var(--color-light-accent) 0%, var(--color-light-accent-dark) 100%);
+          
+          /* Dark Mode Colors (keep your existing ones) */
+          --color-accent: #3b82f6;
+          --color-accent-light: #60a5fa;
+          --color-accent-dark: #1e40af;
+          --color-accent-rgb: 59, 130, 246;
+          --color-surface: rgba(255, 255, 255, 0.05);
+          --color-border: rgba(255, 255, 255, 0.1);
+          --color-text: #ffffff;
+          --color-text-light: rgba(255, 255, 255, 0.7);
+          --color-secondary: rgba(255, 255, 255, 0.6);
+          --hero-bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+          --hero-text-color: #ffffff;
+          --hero-description-color: rgba(255, 255, 255, 0.8);
+          --hero-badge-gradient: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+        }
+
+        /* Light Mode Detection */
+        @media (prefers-color-scheme: light) {
+          :root {
+            --color-accent: var(--color-light-accent);
+            --color-accent-light: var(--color-light-accent-light);
+            --color-accent-dark: var(--color-light-accent-dark);
+            --color-accent-rgb: var(--color-light-accent-rgb);
+            --color-surface: var(--color-light-surface);
+            --color-border: var(--color-light-border);
+            --color-text: var(--color-light-text);
+            --color-text-light: var(--color-light-text-light);
+            --color-secondary: var(--color-light-secondary);
+            --hero-bg-gradient: var(--hero-light-bg-gradient);
+            --hero-text-color: var(--hero-light-text-color);
+            --hero-description-color: var(--hero-light-description-color);
+            --hero-badge-gradient: var(--hero-light-badge-gradient);
+          }
+        }
+
         .resume-section {
           padding: 80px 0;
           background: var(--hero-bg-gradient);
@@ -383,7 +431,7 @@ const Resume: React.FC = () => {
           transition: color 0.3s ease;
         }
 
-        /* Download Resume Button Styles */
+        /* Download Resume Button - Enhanced for Light/Dark Mode */
         .download-resume-btn {
           background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
           color: white;
@@ -403,12 +451,31 @@ const Resume: React.FC = () => {
           margin-top: 10px;
           height: fit-content;
           align-self: center;
+          position: relative;
+          overflow: hidden;
+          z-index: 1;
+        }
+
+        .download-resume-btn::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          z-index: -1;
         }
 
         .download-resume-btn:hover {
           transform: translateY(-3px);
           box-shadow: 0 8px 25px rgba(var(--color-accent-rgb), 0.4);
-          background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+        }
+
+        .download-resume-btn:hover::before {
+          opacity: 1;
         }
 
         .download-resume-btn:active {
@@ -417,6 +484,22 @@ const Resume: React.FC = () => {
 
         .download-icon {
           font-size: 0.9em;
+        }
+
+        /* Light Mode specific button adjustments */
+        @media (prefers-color-scheme: light) {
+          .download-resume-btn {
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-light) 100%);
+          }
+          
+          .download-resume-btn::before {
+            background: linear-gradient(135deg, var(--color-accent-dark) 0%, var(--color-accent) 100%);
+          }
+          
+          .download-resume-btn:hover {
+            box-shadow: 0 8px 25px rgba(var(--color-accent-rgb), 0.4);
+          }
         }
 
         /* Rest of your existing styles */
@@ -785,7 +868,7 @@ const Resume: React.FC = () => {
           color: var(--color-text);
           margin-bottom: 20px;
           padding-bottom: 10px;
-          border-bottom: 2px solid rgba(var(--color-border-rgb), 0.3);
+          border-bottom: 2px solid var(--color-border);
           transition: color 0.3s ease, border-color 0.3s ease;
         }
 
