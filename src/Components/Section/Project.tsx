@@ -63,9 +63,9 @@ const Projects: React.FC = () => {
     {
       id: '3',
       title: 'Resturant Management System',
-      description: 'Comprehensive university resource and student management system',
-      longDescription: 'Centralized platform for managing university resources, student services, faculty coordination, and administrative operations with real-time notifications and reporting.',
-      technologies: ['React', 'Node.js', 'MongoDB', 'Socket.io', 'Tailwind'],
+      description: 'Comprehensive Order making and Resturant management system',
+      longDescription: 'Centralized platform for managing and making orders,Accomodation reservations, Resturant coordination with real-time notifications and reporting.',
+      technologies: ['React', 'Node.js', 'MSSQL', 'Tailwind'],
       features: [
         'Food ordering System',
         'user and admin Dashboards',

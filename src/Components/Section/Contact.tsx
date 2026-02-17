@@ -533,7 +533,7 @@ const Contact: React.FC = () => {
                   value={formData.from_name}
                   onChange={handleChange}
                   required
-                  placeholder="Enter your full name"
+                  placeholder="Enter your name"
                   style={getInputStyles(!!formErrors.from_name)}
                 />
                 {formErrors.from_name && (

@@ -61,7 +61,7 @@ const Resume: React.FC = () => {
       id: 2,
       title: 'Software Development Trainee',
       company: 'Teach2Give',
-      location: 'Remote',
+      location: 'Embu, Kenya',
       period: 'September 2025 - December 2025',
       description: [
         'Completed comprehensive training in full-stack development',
